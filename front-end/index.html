@@ -5,7 +5,14 @@
         <script src="./dist/main.mjs" type="module" defer></script>
     </head>
     <body>
-        <p id="local-msg"></p>
-        <p id="server-msg"></p>
+        <section class="main-container" id="header">
+            <form id="add-task">
+                <input type="text" id="task-name" placeholder="Task name" minlength="3" required>
+                <select id="task-type" required></select>
+                <input type="submit" value="Add task">
+            </form>
+        </section>
+        <section class="main-container" id="body">
+        </section>
     </body>
 </html>
