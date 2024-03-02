@@ -2,7 +2,7 @@ import cors from 'cors';
 import express, { Express, Request, Response } from 'express';
 import { Database } from './database.mjs';
 import { Task } from '../repository/task.mjs';
-import { DataBaseError } from '../repository/helpers.mjs';
+import { DatabaseError } from '../repository/helpers.mjs';
 
 const app: Express = express();
 const port: number = 8080;
@@ -12,7 +12,7 @@ app.use(cors({ origin: true, credentials: true }));
 
 async function HandleResponse(answer: any, res: Response) {
     if (answer instanceof Error) {
-        if (answer instanceof DataBaseError) {
+        if (answer instanceof DatabaseError) {
             res.status(400).send(answer.message);
         } else {
             res.status(500).send(answer.message);

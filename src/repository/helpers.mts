@@ -7,7 +7,7 @@ export abstract class DbObject {
     }
 }
 
-export class DataBaseError extends Error {
+export class DatabaseError extends Error {
     constructor(message: string) {
         super(message);
         this.name = "ApiError";

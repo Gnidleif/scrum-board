@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { DataBaseError, DbObject } from '../repository/helpers.mjs';
+import { DatabaseError, DbObject } from '../repository/helpers.mjs';
 
 export class Database {
     private static instance: Database;
@@ -44,7 +44,7 @@ export class Database {
                     data.push(object);
                     return data;
                 }
-                throw new DataBaseError("Task already exists");
+                throw new DatabaseError("Task already exists");
             })
             .then((data: T[]) => this.Write(fileName, data))
             .catch((err: Error) => err);
@@ -58,7 +58,7 @@ export class Database {
                     data[index] = object;
                     return data;
                 }
-                throw new DataBaseError("Task does not exist");
+                throw new DatabaseError("Task does not exist");
             })
             .then((data: T[]) => this.Write(fileName, data))
             .catch((err: Error) => err);
@@ -72,7 +72,7 @@ export class Database {
                     data.splice(index, 1);
                     return data;
                 }
-                throw new DataBaseError("Task does not exist");
+                throw new DatabaseError("Task does not exist");
             })
             .then((data: T[]) => this.Write(fileName, data))
             .catch((err: Error) => err);
