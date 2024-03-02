@@ -4,12 +4,11 @@
   "description": "",
   "main": "dist/index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/index.mjs",
     "watch": "nodemon --exec npm start"
   },
   "keywords": [],
-  "author": "",
+  "author": "tifi",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.17",
