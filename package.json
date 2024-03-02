@@ -5,7 +5,7 @@
   "main": "dist/backend/server.mjs",
   "scripts": {
     "start": "node dist/backend/server.mjs",
-    "watch": "nodemon --exec npm start"
+    "watch": "nodemon --ignore files/ --exec npm start"
   },
   "repository": {
     "type": "git",

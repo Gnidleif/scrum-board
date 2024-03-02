@@ -1,4 +1,4 @@
-import { DbObject } from "./dbobject.mjs";
+import { DbObject } from "./helpers.mjs";
 
 export enum TaskType {
     UX,
@@ -19,6 +19,7 @@ export class Task implements DbObject {
     developer: string;
     type: TaskType;
     status: TaskStatus;
+    created: Date = new Date();
 
     constructor(id: number, title: string, developer: string, type: TaskType, status: TaskStatus) {
         this.id = id;
