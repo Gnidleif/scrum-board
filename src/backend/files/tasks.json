@@ -1,10 +1,1 @@
-[
-    {
-        "id": 1,
-        "name": "Task 1",
-        "type": 0,
-        "status": 0,
-        "developer": "tifi",
-        "created": "2024-03-02T19:10:51.737Z"
-    }
-]
+[{"id":1,"name":"Task 1","type":0,"status":1,"developer":"tifi","created":1709413771561,"updated":1709413778559}]
