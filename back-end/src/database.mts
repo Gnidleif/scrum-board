@@ -1,37 +1,22 @@
 import fs from 'fs/promises';
 
-class Incrementer {
-    private static id: number = -1;
-
-    public static nextId(): number {
-        return ++Incrementer.id;
-    }
-}
-
-export class DbObject {
-    private id: number;
-
-    constructor() {
-        this.id = Incrementer.nextId();
-    }
-
-    get Id(): number {
-        return this.id;
-    }
+interface HasId {
+    id: number;
+    [key: string]: any;
 }
 
 export class DatabaseReader {
-    public static async ReadAll(fileName: string): Promise<DbObject[] | Error> {
+    public static async SelectAll(fileName: string): Promise<HasId[] | Error> {
         return await fs.readFile(`db/${fileName}.json`, "utf8")
             .then((data: string) => JSON.parse(data))
-            .then((tasks: DbObject[]) => tasks)
+            .then((tasks: HasId[]) => tasks)
             .catch((err: Error) => err);
     }
 
-    public static async ReadById(fileName: string, id: number): Promise<DbObject | null | Error> {
+    public static async Select(fileName: string, id: number): Promise<HasId | null | Error> {
         return await fs.readFile(`db/${fileName}.json`, "utf8")
             .then((data: string) => JSON.parse(data))
-            .then((tasks: DbObject[]) => tasks.find((t) => t.Id === id) || null)
+            .then((tasks: HasId[]) => tasks.find((t) => t.id === id) || null)
             .catch((err: Error) => err);
     }
 }

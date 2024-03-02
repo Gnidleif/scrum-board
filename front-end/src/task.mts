@@ -11,7 +11,6 @@ export enum TaskStatus {
 }
 
 export class Task {
-    public id: number = -1;
     public name: string = "";
     public type: TaskType | null = null;
     public status: TaskStatus | null = null;

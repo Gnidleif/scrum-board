@@ -11,6 +11,15 @@ await fetch("http://127.0.0.1:8080/tasks")
         }
     });
 
+await fetch("http://127.0.0.1:8080/tasks/3")
+    .then((response: Response) => response.json())
+    .then((task: Task) => {
+        if (task.status === null || task.type === null) {
+            throw new Error("Invalid task");
+        }
+        console.log(task);
+    });
+
 const select_type: HTMLSelectElement = document.querySelector("#task-type") as HTMLSelectElement;
 for (const key in Object.keys(TaskType).filter((k) => isNaN(Number(k)))) {
     const option: HTMLOptionElement = document.createElement("option");
