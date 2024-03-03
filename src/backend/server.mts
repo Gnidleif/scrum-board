@@ -1,8 +1,8 @@
 import cors from 'cors';
 import express, { Express, Request, Response } from 'express';
 import { Database } from './database.mjs';
-import { Task } from '../repository/task.mjs';
-import { DatabaseError, DbObject, Success } from '../repository/helpers.mjs';
+import { Task, TaskStatus, TaskType } from '../repository/task.mjs';
+import { DatabaseError, DbObject, Success } from '../repository/utils.mjs';
 
 const app: Express = express();
 const port: number = 8080;
@@ -35,8 +35,44 @@ app.get("/", async (_: Request, res: Response) => {
 
 app.get("/:id", async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id);
-    Database.Instance.Select<Task>("tasks", id)
-        .then((answer: Success<Task> | Error) => HandleResponse(answer, res));
+    Database.Instance.Select<Task>("tasks")
+        .then((answer: Success<Task> | Error) => {
+            if (answer instanceof Error) {
+                HandleResponse(answer, res);
+            } else {
+                const task = answer.content.find((task: Task) => task.id === id);
+                answer.content = task ? [task] : [];
+                HandleResponse(answer, res);
+            }
+        });
+});
+
+app.get("/type/:type", async (req: Request, res: Response) => {
+    const type: TaskType = Number(req.params.type) as TaskType;
+    Database.Instance.Select<Task>("tasks")
+        .then((answer: Success<Task> | Error) => {
+            if (answer instanceof Error) {
+                HandleResponse(answer, res);
+            } else {
+                const filtered = answer.content.filter((task: Task) => task.type === type);
+                answer.content = filtered;
+                HandleResponse(answer, res);
+            }
+        });
+});
+
+app.get("/status/:status", async (req: Request, res: Response) => {
+    const status: TaskStatus = Number(req.params.status) as TaskStatus;
+    Database.Instance.Select<Task>("tasks")
+        .then((answer: Success<Task> | Error) => {
+            if (answer instanceof Error) {
+                HandleResponse(answer, res);
+            } else {
+                const filtered = answer.content.filter((task: Task) => task.status === status);
+                answer.content = filtered;
+                HandleResponse(answer, res);
+            }
+        });
 });
 
 app.post("/", async (req: Request, res: Response) => {

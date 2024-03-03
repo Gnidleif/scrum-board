@@ -1,11 +1,7 @@
 export abstract class DbObject {
-    id: number;
+    id: number = 0;
     created: number = Date.now();
     updated: number = Date.now();
-
-    protected constructor(id: number) {
-        this.id = id;
-    }
 }
 
 export class DatabaseError extends Error {

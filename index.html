@@ -6,21 +6,48 @@
     </head>
     <body>
         <section class="main-container" id="header">
-            <form id="add-task">
-                <input type="text" id="task-name" placeholder="Task name" minlength="3" required>
-                <select id="task-type" required></select>
+            <form id="add-task-form">
+                <input type="text" id="task-name-input" placeholder="Task name" minlength="3" required>
+                <select id="task-type-select" required></select>
                 <input type="submit" value="Add task">
             </form>
-            <section id="task-types">
-                <h2>Task types</h2>
+            <section>
                 <ul id="task-types-list">
-                    <li>Task type 1</li>
-                    <li>Task type 2</li>
-                    <li>Task type 3</li>
+                    <template id="task-type-template">
+                        <li class="task-type">
+                            <span>Example</span>
+                        </li>
+                    </template>
                 </ul>
             </section>
         </section>
         <section class="main-container" id="body">
+            <table id="tasks-table">
+                <thead>
+                    <tr>
+                        <template id="tasks-header-template">
+                            <th>Example</th>
+                        </template>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <template id="tasks-row-template">
+                            <td>
+                                <section class="task backend" data-id="1">
+                                    <p>Title</p>
+                                </section>
+                                <section class="task ux" data-id="1">
+                                    <p>Title</p>
+                                </section>
+                                <section class="task frontend" data-id="1">
+                                    <p>Title</p>
+                                </section>
+                            </td>
+                        </template>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </body>
 </html>

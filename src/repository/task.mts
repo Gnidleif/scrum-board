@@ -1,4 +1,4 @@
-import { DbObject } from "./helpers.mjs";
+import { DbObject } from "./utils.mjs";
 
 export enum TaskType {
     UX,
@@ -14,15 +14,13 @@ export enum TaskStatus {
 
 export class Task extends DbObject {
     title: string;
-    developer: string;
     type: TaskType;
-    status: TaskStatus;
+    developer: string = "";
+    status: TaskStatus = TaskStatus.Todo;
 
-    constructor(id: number, title: string, developer: string, type: TaskType, status: TaskStatus) {
-        super(id);
+    constructor(title: string, type: TaskType) {
+        super();
         this.title = title;
-        this.developer = developer;
         this.type = type;
-        this.status = status;
     }
 }

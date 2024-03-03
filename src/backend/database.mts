@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { DatabaseError, DbObject, Success } from '../repository/helpers.mjs';
+import { DatabaseError, DbObject, Success } from '../repository/utils.mjs';
 
 export class Database {
     private static instance: Database;
@@ -29,6 +29,7 @@ export class Database {
     }
 
     private async Read<T extends DbObject>(fileName: string): Promise<T[]> {
+        console.log(this.incrementer.get(fileName));
         return await fs.readFile(`${this.path}/${fileName}.json`, "utf-8")
             .then((data: string) => JSON.parse(data) as T[]);
     }
@@ -38,14 +39,8 @@ export class Database {
             .catch((err: Error) => err);
     }
 
-    public async Select<T extends DbObject>(fileName: string, id: number | null = null): Promise<Success<T> | Error> {
+    public async Select<T extends DbObject>(fileName: string): Promise<Success<T> | Error> {
         return await this.Read<T>(fileName)
-            .then((data: T[]) => {
-                if (id !== null) {
-                    return data.filter((task: T) => task.id === id);
-                }
-                return data;
-            })
             .then((data: T[]) => new Success(data, "Data fetched successfully"))
             .catch((err: Error) => err);
     }
@@ -53,15 +48,12 @@ export class Database {
     public async Insert<T extends DbObject>(fileName: string, object: T): Promise<Success<T> | Error> {
         return await this.Read<T>(fileName)
             .then((data: T[]) => {
-                if (object.id !== undefined) {
-                    throw new DatabaseError("Id should not be provided");
-                }
                 const nextId = this.incrementer.get(fileName) || 1;
+                this.incrementer.set(fileName, nextId + 1);
                 object.id = nextId;
                 object.created = object.created || Date.now();
                 object.updated = object.updated || Date.now();
                 data.push(object);
-                this.incrementer.set(fileName, nextId + 1);
                 return data;
             })
             .then((data: T[]) => {

@@ -1,0 +1,30 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.task-type {
+    list-style: none;
+    color: black;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;    
+}
+
+.task-type > span {
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+}
+
+.ux {
+    background-color: #f8d7da;
+}
+
+.backend {
+    background-color: #d4edda;
+}
+
+.frontend {
+    background-color: #d1ecf1;
+}
